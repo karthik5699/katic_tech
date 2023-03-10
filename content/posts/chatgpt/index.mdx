@@ -1,0 +1,96 @@
+---
+title: Investment Advisor: Speech to Text
+date: 2023-03-10
+tags:
+  - Code
+---
+
+## Open AI's new ChatGPT API
+
+I tried my hands on the new ChatGPT API to build a chatbot that acts as an investment advisor and gives specific recommendations rather than vague statements.
+
+I have used Gradio in this tutorial to run the machine learning model and build a web interface. It is one of the most popular options out there.
+
+Before we dive into the code, install gradio and openai modules with pip, which is a package manager for python.
+
+```
+pip install gradio, openai
+```
+
+Now, after installing the modules, create a new file called web.py in the editor of your choice. I personally like to use VSCode.
+
+To be able to use OpenAI's ChatGPT API, you will need to create an API key, which is quite straighforward.
+
+In your `web.py` file, import the modules we just installed:
+
+```
+import gradio as gr
+import openai
+```
+
+Gradio's Interface class can wrap any python function along with a simple, yet elegant user interface.
+
+Take a look at the following example, from their [documentation](https://gradio.app/quickstart/):
+
+```
+import gradio as gr
+
+def greet(name):
+    return "Hello " + name + "!"
+
+demo = gr.Interface(
+    fn=greet,
+    inputs=gr.Textbox(lines=2, placeholder="Name Here..."),
+    outputs="text",
+)
+demo.launch()
+```
+
+As an input, you can use anything like image, mp3 etc,.
+
+Now let us get back to building our app.
+
+```
+import gradio as gr
+import openai
+import subprocess
+
+#enter the open ai api key
+openai.api_key = "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"
+
+messages = [{"role": "system", "content": "You are an expert investment advisor. Be concise, clever and give specific recommendation. If you do not have enough information to give specific recommendations, don't hesitate to ask the user"},]
+
+#create a function to pass into the gradio interface
+def transcribe(audio):
+    global messages
+    # print(audio)
+    audio_file= open(audio, "rb")
+    transcript = openai.Audio.transcribe("whisper-1", audio_file)
+    messages.append({"role": "user", "content": transcript['text']})
+    #chatgpt
+    response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=messages)
+    
+    system_message = response['choices'][0]['message']['content']
+    messages.append({"role": "assistant", "content": system_message})
+
+    chat_transcript = ""
+    for message in messages:
+        if message['role']!='system':
+            chat_transcript += message['role'] + ': ' + message['content'] + '\n\n'
+                   
+    return chat_transcript
+
+demo = gr.Interface(fn=transcribe, inputs=gr.Audio(source = "microphone", type = 'filepath'), outputs="text")
+
+#share = True creates a sharabale link with the world
+demo.launch()
+```
+
+
+
+
+
+
+
