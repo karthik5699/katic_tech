@@ -12,9 +12,9 @@ const config: GatsbyConfig = {
     siteTitleAlt: `Personal Blog`,
     siteHeadline: `Katic`,
     siteUrl: `http://katic.tech`,
-    siteDescription: `Typography driven, feature-rich blogging theme with minimal aesthetics. Includes tags/categories support and extensive features for code blocks such as live preview, line numbers, and line highlighting.`,
+    siteDescription: `Personal website of Karthik Singh`,
     siteImage: `/banner.jpg`,
-    author: `@lekoarts_de`,
+    author: `Katic`,
   },
   trailingSlash: `never`,
   plugins: [
