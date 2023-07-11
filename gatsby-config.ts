@@ -9,7 +9,7 @@ const config: GatsbyConfig = {
     // You can also add new values here to query them like usual
     // See all options: https://github.com/LekoArts/gatsby-themes/blob/main/themes/gatsby-theme-minimal-blog/gatsby-config.js
     siteTitle: `Katic`,
-    siteTitleAlt: `Personal Blog`,
+    siteTitleAlt: `Katic`,
     siteHeadline: `Katic`,
     siteUrl: `http://katic.tech`,
     siteDescription: `Personal website of Karthik Singh`,
@@ -42,8 +42,8 @@ const config: GatsbyConfig = {
             url: `https://twitter.com/0xKatic`,
           },
           {
-            name: `LinkedIn`,
-            url: `https://www.linkedin.com/in/0xkatic/`,
+            name: `Résumé`,
+            url: `https://rxresu.me/r/v0ARdnj-`,
           },
         ],
       },
